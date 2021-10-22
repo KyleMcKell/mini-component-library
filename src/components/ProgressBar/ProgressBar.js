@@ -24,22 +24,24 @@ const SIZES = {
 };
 
 const ProgressBar = ({ value, size }) => {
+	const sizeStyles = SIZES[size];
+
 	return (
 		<div style={{ width: '400px' }}>
-			<Wrapper size={size}>
+			<Wrapper sizeStyles={sizeStyles}>
 				<VisuallyHidden>{value}%</VisuallyHidden>
 				<BarWrapper>
-					<Bar size={size} value={value} />
+					<Bar sizeStyles={sizeStyles} value={value} />
 				</BarWrapper>
 			</Wrapper>
 		</div>
 	);
 };
 
-const Wrapper = styled.div.attrs(({ size }) => ({
+const Wrapper = styled.div.attrs(({ sizeStyles }) => ({
 	style: {
-		'--padding': SIZES[size].padding + 'px',
-		'--radius': SIZES[size].radius + 'px',
+		'--padding': sizeStyles.padding + 'px',
+		'--radius': sizeStyles.radius + 'px',
 	},
 }))`
 	background-color: ${COLORS.transparentGray15};
@@ -54,10 +56,10 @@ const BarWrapper = styled.div`
 	overflow: hidden;
 `;
 
-const Bar = styled.div.attrs(({ size, value }) => ({
+const Bar = styled.div.attrs(({ sizeStyles, value }) => ({
 	style: {
 		'--width': value + '%',
-		'--height': SIZES[size].height + 'px',
+		'--height': sizeStyles.height + 'px',
 	},
 }))`
 	width: var(--width);
